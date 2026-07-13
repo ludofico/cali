@@ -109,7 +109,7 @@
   .ex-actions{display:flex;align-items:center;gap:7px;margin-top:11px;}
   .pill{
     border:1px solid var(--line);background:#11161d;color:var(--text);
-    font-family:var(--display);font-weight:500;font-size:12.5px;padding:8px 12px;border-radius:9px;cursor:pointer;display:flex;align-items:center;gap:6px;
+    font-family:var(--display);font-weight:500;font-size:12.5px;padding:8px 12px;min-height:44px;border-radius:9px;cursor:pointer;display:flex;align-items:center;gap:6px;
   }
   .pill:active{background:var(--surface-2);}
   .pill.rest{color:var(--green);}
@@ -118,10 +118,20 @@
   .embed{max-height:0;overflow:hidden;transition:max-height .3s ease;margin-top:0;}
   .embed.open{max-height:520px;margin-top:11px;}
   .embed iframe{width:100%;aspect-ratio:16/9;border-radius:10px;display:block;background:#000;}
-  .dots{display:flex;gap:5px;align-items:center;margin-top:11px;}
-  .dots .dl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-right:3px;}
-  .dot{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--muted-2);cursor:pointer;transition:.12s;}
+  .dots{display:flex;gap:2px;align-items:center;margin-top:11px;}
+  .dots .dl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-right:5px;}
+  .dot-hit{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .dot{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--muted-2);transition:.12s;}
   .dot.on{background:var(--amber);border-color:var(--amber);}
+
+  /* ---------- GIF demo ---------- */
+  .ex-media{position:relative;margin-bottom:11px;border-radius:12px;overflow:hidden;background:#0b0e12;}
+  .ex-media img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#0b0e12;}
+  .gif-badge{
+    position:absolute;top:8px;right:8px;z-index:1;
+    font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:.08em;color:#1a1206;
+    background:var(--amber);padding:3px 7px;border-radius:6px;
+  }
 
   footer{margin-top:30px;text-align:center;}
   .reset{background:transparent;border:1px solid var(--line);color:var(--muted);font-family:var(--display);font-size:12px;padding:10px 18px;border-radius:10px;cursor:pointer;}
@@ -177,39 +187,73 @@
     <button class="reset" id="resetProgress">Azzera progressi di oggi</button>
     <p class="note">
       <b>Timer &amp; iOS.</b> Mentre un timer è attivo lo schermo resta acceso (Wake Lock). Il conteggio usa l'orologio reale: se esci e rientri nella pagina, il tempo si aggiorna corretto. Limite di sistema: se passi ad un'altra app o blocchi lo schermo, iOS sospende la pagina e il beep non suona finché non rientri.<br><br>
-      <b>Video.</b> Le skill hanno una dimostrazione verificata: <b>▶ Demo</b> apre il player nella pagina. Gli esercizi di riscaldamento/mobilità hanno <b>▸ Cerca video</b> che apre la ricerca YouTube. Per cambiare un video, modifica il campo <code>vid:"ID"</code> nel codice.<br><br>
+      <b>GIF.</b> Ogni esercizio mostra una gif in loop del gesto (badge <b>GIF</b>), presa da Tenor: colpo d'occhio rapido, non la forma esatta della tua progressione. Per la mobilità/stretch la gif è indicativa. Per cambiarla, modifica <code>gif:GIF.chiave</code> nel codice.<br><br>
+      <b>Video.</b> Le skill hanno anche <b>▶ Demo</b>: apre il player verificato nella pagina. Per cambiarlo, modifica <code>vid:"ID"</code>.<br><br>
       <b>Recupero skill:</b> 2–3 min, priorità alla qualità del gesto, non alla fatica.
     </p>
   </footer>
 </div>
 
 <script>
+/* ============ GIF DIMOSTRATIVE (Tenor, media diretto) ============ */
+const GIF = {
+  scapular_pulls:         "https://media.tenor.com/K-UZrgp-1vQAAAAM/scapular-pulls.gif",
+  planche_journey:        "https://media.tenor.com/Mgtr0kom6cMAAAAM/planche-calisthenics.gif",
+  cat_cow:                "https://media.tenor.com/oHUrhaZZlHIAAAAM/yoga.gif",
+  wrist_stretch:          "https://media.tenor.com/qhIiXDPUihcAAAAM/wrists-wrist-strengthening.gif",
+  wrist_rotation:         "https://media.tenor.com/E-IM_fgcYPEAAAAM/wrist-rotation-rotating.gif",
+  shoulder_stretch:       "https://media.tenor.com/nN2MZOw7BW0AAAAM/oscar-isaac-movie.gif",
+  bridge_exercise:        "https://media.tenor.com/DlWwuYApouQAAAAM/exercise-fitness.gif",
+  foam_roller:            "https://media.tenor.com/vH2_CMwXtNIAAAAM/qroller.gif",
+  hip_stretch:            "https://media.tenor.com/mHxTSAgowdYAAAAM/ppef-pereposamenforma.gif",
+  tuck_planche:           "https://media.tenor.com/hJMpMfXz2JwAAAAM/chris-heria-planche.gif",
+  practicing_handstand:   "https://media.tenor.com/KBHEQijyurQAAAAM/practicing-handstand-handstand.gif",
+  handstand_acro:         "https://media.tenor.com/s3y1DXgX24MAAAAM/handstand-acro.gif",
+  resistance_bands:       "https://media.tenor.com/IrYw1RzccdoAAAAM/resistance-bands-workout.gif",
+  hollow_hold:            "https://media.tenor.com/q7r6mjrFVh0AAAAM/hand-raised-balance.gif",
+  lat_stretch:            "https://media.tenor.com/7ZBm_n0J2A4AAAAM/fisika-stretching.gif",
+  thoracic_twist:         "https://media.tenor.com/RRinoIwZdSUAAAAM/marketing-digital-stretching.gif",
+  speed_pullups:          "https://media.tenor.com/q-2YclmtepIAAAAM/markworkstoday-pull-ups.gif",
+  pushup_basic:           "https://media.tenor.com/W83bPDWTkawAAAAM/pushup-body-weight-training.gif",
+  pseudo_planche_pushup:  "https://media.tenor.com/ma1RKic-SX0AAAAM/pseudo-planche-pushup-planche-pushup.gif",
+  wall_support_hspu:      "https://media.tenor.com/NqefZJ8WLLQAAAAM/wall-support-handstand-push-up.gif",
+  handstand_pushup_isfaaq:"https://media.tenor.com/VdEFd1VU64kAAAAM/push-up-handstand-pushup.gif",
+  edwardzo_dips:          "https://media.tenor.com/nuKbifI5gvAAAAAM/edwardzo-dips.gif",
+  strict_muscle_up:       "https://media.tenor.com/gkU5mUsM5r0AAAAM/fuckitf-goldie.gif",
+  hanging_leg_raise:      "https://media.tenor.com/LuTjJGyFOoUAAAAM/hanging-leg-raise.gif",
+  explosive_muscle_ups:   "https://media.tenor.com/id3HHjnGUOQAAAAM/explosive-muscle-ups-chris-heria.gif",
+  human_flag:             "https://media.tenor.com/87Lb6Y2FiX4AAAAM/calisthenics-cali.gif",
+  hanging_strong:         "https://media.tenor.com/yJX5yULZ8icAAAAM/hanging-strong.gif",
+  side_plank_twist:       "https://media.tenor.com/4iizorR4oc4AAAAM/side-plank-twist-left-body-side-work-out.gif",
+};
+
 /* ============ DATI SCHEDA ============ */
 // Per cambiare/fissare un video: aggiungi o modifica  vid:"YOUTUBE_ID"  (solo l'ID, es. vid:"oyCCOwhaiZI").
+// Per cambiare/fissare una gif: aggiungi o modifica  gif:"URL"  (mp4/gif diretto, es. GIF.human_flag).
 const PROGRAM = [
   {
     title:"Giorno 1", subtitle:"Push / Verticale", focus:"Planche · Handstand · HSPU",
     blocks:[
       { name:"Riscaldamento", note:"~5 min, light", items:[
-        {n:"Cat-cow + rotazioni scapolari", d:"8–10 reps", q:"cat cow scapular warm up", vid:"o2OEU8i7c64"},
-        {n:"Scapular push-ups", d:"2 × 10", q:"scapular push ups", rest:45, vid:"3TsOKiUDzw0"},
-        {n:"Wrist prep a terra (rocks)", d:"1–2 min", q:"wrist warm up calisthenics", hold:90},
-        {n:"Band shoulder dislocates", d:"2 × 10", q:"band shoulder dislocates", rest:45},
+        {n:"Cat-cow + rotazioni scapolari", d:"8–10 reps", q:"cat cow scapular warm up", vid:"o2OEU8i7c64", gif:GIF.cat_cow},
+        {n:"Scapular push-ups", d:"2 × 10", q:"scapular push ups", rest:45, vid:"3TsOKiUDzw0", gif:GIF.pushup_basic},
+        {n:"Wrist prep a terra (rocks)", d:"1–2 min", q:"wrist warm up calisthenics", hold:90, gif:GIF.wrist_stretch},
+        {n:"Band shoulder dislocates", d:"2 × 10", q:"band shoulder dislocates", rest:45, gif:GIF.shoulder_stretch},
       ]},
       { name:"Mobilità & Postura", note:"", items:[
-        {n:"Pelvic tilt controllati (supino)", d:"2 × 8 lenti", q:"posterior anterior pelvic tilt drill", rest:30},
-        {n:"Estensione toracica (foam roller)", d:"1–2 min", q:"thoracic extension foam roller", hold:90},
-        {n:"Stretch flessori anca + 90/90", d:"45″ / lato", q:"90 90 hip stretch", hold:45},
-        {n:"Mobilità polso in carico", d:"1 min", q:"wrist mobility quadruped", hold:60},
+        {n:"Pelvic tilt controllati (supino)", d:"2 × 8 lenti", q:"posterior anterior pelvic tilt drill", rest:30, gif:GIF.bridge_exercise},
+        {n:"Estensione toracica (foam roller)", d:"1–2 min", q:"thoracic extension foam roller", hold:90, gif:GIF.foam_roller},
+        {n:"Stretch flessori anca + 90/90", d:"45″ / lato", q:"90 90 hip stretch", hold:45, gif:GIF.hip_stretch},
+        {n:"Mobilità polso in carico", d:"1 min", q:"wrist mobility quadruped", hold:60, gif:GIF.wrist_rotation},
       ]},
       { name:"Skill", note:"", items:[
-        {n:"Planche lean (scapole protratte)", d:"5 × 10–15″", q:"planche lean progression", hold:12, rest:120, vid:"oyCCOwhaiZI"},
-        {n:"Advanced tuck / straddle planche", d:"5 × 5–8″", q:"advanced tuck planche hold", hold:7, rest:150, vid:"52kD1wrjYy8"},
-        {n:"Pseudo planche push-ups", d:"4 × 4–6", q:"pseudo planche push up", rest:150, vid:"VJd_q5w-VeY"},
-        {n:"Handstand contro muro (face-to-wall)", d:"4 × 20–30″", q:"face to wall handstand hold", hold:25, rest:90, vid:"FUeY-ht_8aU"},
-        {n:"Free handstand kick-up + balance", d:"5–8 tentativi", q:"freestanding handstand kick up", rest:90, vid:"XnsM3TLjubY"},
-        {n:"Pike push-ups / HSPU al muro", d:"4 × 4–6", q:"pike push up to wall hspu", rest:150, vid:"oXT2HEQe1wM"},
-        {n:"Deficit HSPU (opzionale, pulito)", d:"3 × 3", q:"deficit handstand push up", rest:180, vid:"oXT2HEQe1wM"},
+        {n:"Planche lean (scapole protratte)", d:"5 × 10–15″", q:"planche lean progression", hold:12, rest:120, vid:"oyCCOwhaiZI", gif:GIF.planche_journey},
+        {n:"Advanced tuck / straddle planche", d:"5 × 5–8″", q:"advanced tuck planche hold", hold:7, rest:150, vid:"52kD1wrjYy8", gif:GIF.tuck_planche},
+        {n:"Pseudo planche push-ups", d:"4 × 4–6", q:"pseudo planche push up", rest:150, vid:"VJd_q5w-VeY", gif:GIF.pseudo_planche_pushup},
+        {n:"Handstand contro muro (face-to-wall)", d:"4 × 20–30″", q:"face to wall handstand hold", hold:25, rest:90, vid:"FUeY-ht_8aU", gif:GIF.practicing_handstand},
+        {n:"Free handstand kick-up + balance", d:"5–8 tentativi", q:"freestanding handstand kick up", rest:90, vid:"XnsM3TLjubY", gif:GIF.handstand_acro},
+        {n:"Pike push-ups / HSPU al muro", d:"4 × 4–6", q:"pike push up to wall hspu", rest:150, vid:"oXT2HEQe1wM", gif:GIF.wall_support_hspu},
+        {n:"Deficit HSPU (opzionale, pulito)", d:"3 × 3", q:"deficit handstand push up", rest:180, vid:"oXT2HEQe1wM", gif:GIF.handstand_pushup_isfaaq},
       ]},
     ]
   },
@@ -217,26 +261,26 @@ const PROGRAM = [
     title:"Giorno 2", subtitle:"Pull / Laterale", focus:"Muscle-up · Human flag",
     blocks:[
       { name:"Riscaldamento", note:"~5 min, light", items:[
-        {n:"Dead hang", d:"2 × 20–30″", q:"dead hang bar", hold:25, rest:45},
-        {n:"Scapular pulls (sbarra)", d:"2 × 8", q:"scapular pull ups", rest:45},
-        {n:"Band pull-aparts", d:"2 × 15", q:"band pull apart", rest:30},
-        {n:"Wrist + gomito prep", d:"1 min", q:"wrist elbow warm up calisthenics", hold:60},
+        {n:"Dead hang", d:"2 × 20–30″", q:"dead hang bar", hold:25, rest:45, gif:GIF.hanging_strong},
+        {n:"Scapular pulls (sbarra)", d:"2 × 8", q:"scapular pull ups", rest:45, gif:GIF.scapular_pulls},
+        {n:"Band pull-aparts", d:"2 × 15", q:"band pull apart", rest:30, gif:GIF.resistance_bands},
+        {n:"Wrist + gomito prep", d:"1 min", q:"wrist elbow warm up calisthenics", hold:60, gif:GIF.wrist_rotation},
       ]},
       { name:"Mobilità & Postura", note:"", items:[
-        {n:"Hollow ↔ arch (controllo bacino)", d:"3 × 15–20″", q:"hollow body to arch drill", hold:18, rest:40},
-        {n:"Stretch gran dorsale", d:"45″ / lato", q:"lat stretch", hold:45},
-        {n:"Mobilità toracica in rotazione", d:"8 reps / lato", q:"thoracic rotation mobility"},
-        {n:"Side plank + lift bacino", d:"2 × 30″ / lato", q:"side plank hip lift", hold:30, rest:40},
+        {n:"Hollow ↔ arch (controllo bacino)", d:"3 × 15–20″", q:"hollow body to arch drill", hold:18, rest:40, gif:GIF.hollow_hold},
+        {n:"Stretch gran dorsale", d:"45″ / lato", q:"lat stretch", hold:45, gif:GIF.lat_stretch},
+        {n:"Mobilità toracica in rotazione", d:"8 reps / lato", q:"thoracic rotation mobility", gif:GIF.thoracic_twist},
+        {n:"Side plank + lift bacino", d:"2 × 30″ / lato", q:"side plank hip lift", hold:30, rest:40, gif:GIF.side_plank_twist},
       ]},
       { name:"Skill", note:"", items:[
-        {n:"High pull-ups esplosive (petto alla sbarra)", d:"5 × 3–4", q:"explosive chest to bar pull ups", rest:150, vid:"f69g4QA0aUo"},
-        {n:"Transizione muscle-up (elastico / negative)", d:"5 × 2–3", q:"muscle up transition drill", rest:150, vid:"_eQ2gw_Gg5Y"},
-        {n:"Straight bar dips", d:"4 × 5–6", q:"straight bar dips", rest:120, vid:"f69g4QA0aUo"},
-        {n:"Muscle-up tentativi puliti", d:"4–6 tentativi", q:"strict bar muscle up tutorial", rest:180, vid:"3SduiaXqAT4"},
-        {n:"Support hold laterale (flag)", d:"4 × 10–15″", q:"human flag support hold", hold:12, rest:120, vid:"lczvDH9Fze4"},
-        {n:"Tuck flag hold", d:"5 × 5–8″", q:"tuck human flag hold", hold:7, rest:150, vid:"lczvDH9Fze4"},
-        {n:"Flag negatives", d:"4 × 3", q:"human flag negatives", rest:150, vid:"lczvDH9Fze4"},
-        {n:"Hanging leg raises / oblique", d:"3 × 8–10", q:"hanging leg raises", rest:90},
+        {n:"High pull-ups esplosive (petto alla sbarra)", d:"5 × 3–4", q:"explosive chest to bar pull ups", rest:150, vid:"f69g4QA0aUo", gif:GIF.speed_pullups},
+        {n:"Transizione muscle-up (elastico / negative)", d:"5 × 2–3", q:"muscle up transition drill", rest:150, vid:"_eQ2gw_Gg5Y", gif:GIF.explosive_muscle_ups},
+        {n:"Straight bar dips", d:"4 × 5–6", q:"straight bar dips", rest:120, vid:"f69g4QA0aUo", gif:GIF.edwardzo_dips},
+        {n:"Muscle-up tentativi puliti", d:"4–6 tentativi", q:"strict bar muscle up tutorial", rest:180, vid:"3SduiaXqAT4", gif:GIF.strict_muscle_up},
+        {n:"Support hold laterale (flag)", d:"4 × 10–15″", q:"human flag support hold", hold:12, rest:120, vid:"lczvDH9Fze4", gif:GIF.human_flag},
+        {n:"Tuck flag hold", d:"5 × 5–8″", q:"tuck human flag hold", hold:7, rest:150, vid:"lczvDH9Fze4", gif:GIF.human_flag},
+        {n:"Flag negatives", d:"4 × 3", q:"human flag negatives", rest:150, vid:"lczvDH9Fze4", gif:GIF.human_flag},
+        {n:"Hanging leg raises / oblique", d:"3 × 8–10", q:"hanging leg raises", rest:90, gif:GIF.hanging_leg_raise},
       ]},
     ]
   }
@@ -410,16 +454,20 @@ function buildProgram(){
       let actions = "";
       if(it.hold) actions += `<button class="pill" data-act="hold">${ico()} Hold ${it.hold}″</button>`;
       if(it.rest) actions += `<button class="pill rest" data-act="rest">${ico()} Recupero ${it.rest>=60?(it.rest/60)+"′":it.rest+"″"}</button>`;
-      actions += `<button class="pill vid" data-act="vid">${it.vid ? "▶ Demo" : "▸ Cerca video"}</button>`;
+      if(it.vid) actions += `<button class="pill vid" data-act="vid">▶ Demo</button>`;
+      else if(!it.gif) actions += `<button class="pill vid" data-act="vid">▸ Cerca video</button>`;
 
       let dots = "";
       if(sets>0){
         dots = `<div class="dots"><span class="dl">Serie</span>`;
-        for(let s=0;s<sets;s++) dots += `<span class="dot${s<done?" on":""}" data-set="${s}"></span>`;
+        for(let s=0;s<sets;s++) dots += `<span class="dot-hit" data-set="${s}"><span class="dot${s<done?" on":""}"></span></span>`;
         dots += `</div>`;
       }
 
+      const media = it.gif ? `<div class="ex-media"><span class="gif-badge">GIF</span><img src="${it.gif}" alt="Dimostrazione: ${it.n}" loading="lazy" decoding="async"></div>` : "";
+
       card.innerHTML = `
+        ${media}
         <div class="ex-top"><span class="ex-name">${it.n}</span><span class="ex-detail">${it.d}</span></div>
         <div class="ex-actions">${actions}</div>
         ${dots}
@@ -449,7 +497,7 @@ function buildProgram(){
         };
       });
       // set dots
-      card.querySelectorAll(".dot").forEach(d=>{
+      card.querySelectorAll(".dot-hit").forEach(d=>{
         d.onclick = ()=>{
           const idx = parseInt(d.dataset.set)+1;
           progress[key] = (progress[key]===idx) ? idx-1 : idx;
