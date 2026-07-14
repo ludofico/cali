@@ -115,6 +115,12 @@
   .pill.rest{color:var(--green);}
   .pill svg{width:11px;height:11px;}
   .vid{margin-left:auto;color:var(--muted);border-color:var(--line);}
+  .pill.steps-btn.active{background:var(--amber);color:#1a1206;border-color:var(--amber);}
+  .steps-box{max-height:0;overflow:hidden;transition:max-height .35s ease;margin-top:0;}
+  .steps-box.open{max-height:600px;margin-top:11px;}
+  .steps-box ol{padding-left:19px;}
+  .steps-box li{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:7px;}
+  .steps-box li:last-child{margin-bottom:0;}
   .embed{max-height:0;overflow:hidden;transition:max-height .3s ease;margin-top:0;}
   .embed.open{max-height:520px;margin-top:11px;}
   .embed iframe{width:100%;aspect-ratio:16/9;border-radius:10px;display:block;background:#000;}
@@ -236,25 +242,40 @@ const PROGRAM = [
     title:"Giorno 1", subtitle:"Push / Verticale", focus:"Planche · Handstand · HSPU",
     blocks:[
       { name:"Riscaldamento", note:"~5 min, light", items:[
-        {n:"Cat-cow + rotazioni scapolari", d:"8–10 reps", q:"cat cow scapular warm up", vid:"o2OEU8i7c64", gif:GIF.cat_cow},
-        {n:"Scapular push-ups", d:"2 × 10", q:"scapular push ups", rest:45, vid:"3TsOKiUDzw0", gif:GIF.scapular_pushup},
-        {n:"Wrist prep a terra (rocks)", d:"1–2 min", q:"wrist warm up calisthenics", hold:90, gif:GIF.wrist_stretch},
-        {n:"Band shoulder dislocates", d:"2 × 10", q:"band shoulder dislocates", rest:45, gif:GIF.shoulder_dislocates},
+        {n:"Cat-cow + rotazioni scapolari", d:"8–10 reps", q:"cat cow scapular warm up", vid:"o2OEU8i7c64", gif:GIF.cat_cow,
+          steps:["Quadrupedia, mani sotto le spalle, ginocchia sotto i fianchi.","Inspira in estensione (cow, pancia giù), espira in flessione (cat, schiena a gobba).","Aggiungi 8–10 rotazioni scapolari: protrai/ritrai le scapole senza flettere i gomiti."]},
+        {n:"Scapular push-ups", d:"2 × 10", q:"scapular push ups", rest:45, vid:"3TsOKiUDzw0", gif:GIF.scapular_pushup,
+          steps:["Posizione di plank/push-up, braccia tese e bloccate.","Senza piegare i gomiti, lascia scendere il petto tra le scapole (retrazione) poi spingi via il pavimento (protrazione).","Movimento piccolo e controllato: lavora solo la scapola, non il gomito."]},
+        {n:"Wrist prep a terra (rocks)", d:"1–2 min", q:"wrist warm up calisthenics", hold:90, gif:GIF.wrist_stretch,
+          steps:["Mani a terra, dita ben aperte e rivolte in avanti.","Sposta lentamente il peso avanti/indietro (rocking) sentendo lo stretch su polso e avambraccio.","Ruota poi i palmi in varie direzioni (dita verso i lati, verso di te) per coprire tutta l'articolazione."]},
+        {n:"Band shoulder dislocates", d:"2 × 10", q:"band shoulder dislocates", rest:45, gif:GIF.shoulder_dislocates,
+          steps:["Presa larga sull'elastico, braccia tese davanti a te.","Porta l'elastico sopra la testa e dietro la schiena mantenendo i gomiti bloccati.","Se senti tensione eccessiva in spalla, allarga la presa: l'ampiezza conta più della velocità."]},
       ]},
       { name:"Mobilità & Postura", note:"", items:[
-        {n:"Pelvic tilt controllati (supino)", d:"2 × 8 lenti", q:"posterior anterior pelvic tilt drill", rest:30, gif:GIF.bridge_exercise},
-        {n:"Estensione toracica (foam roller)", d:"1–2 min", q:"thoracic extension foam roller", hold:90, gif:GIF.foam_roller},
-        {n:"Stretch flessori anca + 90/90", d:"45″ / lato", q:"90 90 hip stretch", hold:45, gif:GIF.hip_stretch},
-        {n:"Mobilità polso in carico", d:"1 min", q:"wrist mobility quadruped", hold:60, gif:GIF.wrist_rotation},
+        {n:"Pelvic tilt controllati (supino)", d:"2 × 8 lenti", q:"posterior anterior pelvic tilt drill", rest:30, gif:GIF.bridge_exercise,
+          steps:["Supino, ginocchia piegate, piedi a terra, mani sui fianchi.","Appiattisci la zona lombare a terra contraendo addome e glutei (retroversione).","Torna a inarcare leggermente (antiversione): ripeti lento, senza usare le gambe per spingere."]},
+        {n:"Estensione toracica (foam roller)", d:"1–2 min", q:"thoracic extension foam roller", hold:90, gif:GIF.foam_roller,
+          steps:["Foam roller orizzontale sotto le scapole, mani dietro la nuca a sostenere il capo.","Fai leva sui piedi, inarcati indietro sul roller lasciando cadere la testa.","Torna su controllato senza usare le lombari: il movimento resta nella zona toracica alta."]},
+        {n:"Stretch flessori anca + 90/90", d:"45″ / lato", q:"90 90 hip stretch", hold:45, gif:GIF.hip_stretch,
+          steps:["Seduto, gamba davanti piegata a 90°, gamba dietro piegata a 90° lateralmente.","Busto eretto, inclinati leggermente in avanti sulla gamba anteriore mantenendo la schiena lunga.","Cambia lato: se un lato è molto più rigido, dedica qualche secondo in più senza forzare."]},
+        {n:"Mobilità polso in carico", d:"1 min", q:"wrist mobility quadruped", hold:60, gif:GIF.wrist_rotation,
+          steps:["Quadrupedia con mani a terra, peso parzialmente scaricato sui polsi.","Esegui piccoli cerchi e flesso-estensioni tenendo il palmo a contatto con il suolo.","Se avverti dolore acuto (non semplice tensione), riduci il carico o fermati."]},
       ]},
       { name:"Skill", note:"", items:[
-        {n:"Planche lean (scapole protratte)", d:"5 × 10–15″", q:"planche lean progression", hold:12, rest:120, vid:"oyCCOwhaiZI", gif:GIF.planche_lean},
-        {n:"Advanced tuck / straddle planche", d:"5 × 5–8″", q:"advanced tuck planche hold", hold:7, rest:150, vid:"52kD1wrjYy8", gif:GIF.tuck_planche},
-        {n:"Pseudo planche push-ups", d:"4 × 4–6", q:"pseudo planche push up", rest:150, vid:"VJd_q5w-VeY", gif:GIF.pseudo_planche_pushup},
-        {n:"Handstand contro muro (face-to-wall)", d:"4 × 20–30″", q:"face to wall handstand hold", hold:25, rest:90, vid:"FUeY-ht_8aU", gif:GIF.wall_handstand},
-        {n:"Free handstand kick-up + balance", d:"5–8 tentativi", q:"freestanding handstand kick up", rest:90, vid:"XnsM3TLjubY", gif:GIF.handstand_kickup},
-        {n:"Pike push-ups / HSPU al muro", d:"4 × 4–6", q:"pike push up to wall hspu", rest:150, vid:"oXT2HEQe1wM", gif:GIF.wall_hspu},
-        {n:"Deficit HSPU (opzionale, pulito)", d:"3 × 3", q:"deficit handstand push up", rest:180, vid:"oXT2HEQe1wM", gif:GIF.handstand_pushup},
+        {n:"Planche lean (scapole protratte)", d:"5 × 10–15″", q:"planche lean progression", hold:12, rest:120, vid:"oyCCOwhaiZI", gif:GIF.planche_lean,
+          steps:["Su parallettes o pavimento, braccia tese, spalle protratte (scapole in avanti) fin dall'inizio.","Inclina il busto in avanti spostando le spalle oltre le mani, bacino in leggero hollow.","Più ti inclini avanti più aumenta il carico: fermati appena senti cedere la protrazione scapolare."]},
+        {n:"Advanced tuck / straddle planche", d:"5 × 5–8″", q:"advanced tuck planche hold", hold:7, rest:150, vid:"52kD1wrjYy8", gif:GIF.tuck_planche,
+          steps:["Da tuck planche, allontana le ginocchia dal petto (advanced tuck) o apri le gambe (straddle).","Mantieni spalle protratte, braccia tese, sguardo leggermente avanti (non giù).","Se il bacino scende o le spalle collassano, torna alla progressione precedente: qualità prima di durata."]},
+        {n:"Pseudo planche push-ups", d:"4 × 4–6", q:"pseudo planche push up", rest:150, vid:"VJd_q5w-VeY", gif:GIF.pseudo_planche_pushup,
+          steps:["Mani ruotate con le dita verso i piedi, posizionate all'altezza del bacino (non del petto).","Scendi mantenendo un'inclinazione in avanti costante, gomiti stretti al corpo.","Spingi mantenendo l'inclinazione: se torni verticale a ogni rep, il lavoro sulla planche si perde."]},
+        {n:"Handstand contro muro (face-to-wall)", d:"4 × 20–30″", q:"face to wall handstand hold", hold:25, rest:90, vid:"FUeY-ht_8aU", gif:GIF.wall_handstand,
+          steps:["Mani a 15–20cm dal muro, cammina con i piedi su fino a verticale, pancia verso il muro.","Spingi attivamente il pavimento (protrazione), corpo in linea retta, sguardo tra le mani.","Se il bacino si stacca dal muro (arco lombare), stringi glutei e addome per allinearti."]},
+        {n:"Free handstand kick-up + balance", d:"5–8 tentativi", q:"freestanding handstand kick up", rest:90, vid:"XnsM3TLjubY", gif:GIF.handstand_kickup,
+          steps:["Mani a terra, spalle sopra le mani, una gamba slancia mentre l'altra spinge da terra.","Trova l'equilibrio agendo con le dita delle mani (non con le braccia): premi le dita per correggere l'inclinazione.","Esci controllato ruotando su un lato o rifacendo il passo indietro, non crollare in avanti."]},
+        {n:"Pike push-ups / HSPU al muro", d:"4 × 4–6", q:"pike push up to wall hspu", rest:150, vid:"oXT2HEQe1wM", gif:GIF.wall_hspu,
+          steps:["Piedi sollevati (su rialzo o muro) o V invertita a terra, mani larghezza spalle.","Scendi portando la testa tra/oltre le mani flettendo i gomiti, senza perdere la verticalità del busto.","Spingi tornando su a braccia tese: se il collo prende tutto il carico, stai scendendo troppo in avanti."]},
+        {n:"Deficit HSPU (opzionale, pulito)", d:"3 × 3", q:"deficit handstand push up", rest:180, vid:"oXT2HEQe1wM", gif:GIF.handstand_pushup,
+          steps:["Verticale libera o al muro, mani su rialzi (parallettes/step) per aumentare il range.","Scendi controllato fino a testa sotto il livello delle mani, gomiti che puntano leggermente avanti.","Spingi in verticale piena: esegui solo se hai già HSPU pulite a terra, qui il ROM extra è il rischio principale."]},
       ]},
     ]
   },
@@ -262,26 +283,42 @@ const PROGRAM = [
     title:"Giorno 2", subtitle:"Pull / Laterale", focus:"Muscle-up · Human flag",
     blocks:[
       { name:"Riscaldamento", note:"~5 min, light", items:[
-        {n:"Dead hang", d:"2 × 20–30″", q:"dead hang bar", hold:25, rest:45, gif:GIF.dead_hang},
-        {n:"Scapular pulls (sbarra)", d:"2 × 8", q:"scapular pull ups", rest:45, gif:GIF.scapular_pull},
-        {n:"Band pull-aparts", d:"2 × 15", q:"band pull apart", rest:30, gif:GIF.band_pull_apart},
-        {n:"Wrist + gomito prep", d:"1 min", q:"wrist elbow warm up calisthenics", hold:60, gif:GIF.wrist_elbow_warmup},
+        {n:"Dead hang", d:"2 × 20–30″", q:"dead hang bar", hold:25, rest:45, gif:GIF.dead_hang,
+          steps:["Presa prona larghezza spalle, corpo rilassato appeso, piedi da terra.","Lascia decomprimere la colonna e aprire le spalle, respirazione lenta.","Attiva leggermente la cuffia dei rotatori (spalle 'lontane dalle orecchie') senza tirarti su."]},
+        {n:"Scapular pulls (sbarra)", d:"2 × 8", q:"scapular pull ups", rest:45, gif:GIF.scapular_pull,
+          steps:["Appeso alla sbarra, braccia completamente tese.","Senza piegare i gomiti, tira le scapole verso il basso e indietro sollevando di pochi centimetri.","Pausa 1s in alto, torna a un dead hang completo tra una rep e l'altra."]},
+        {n:"Band pull-aparts", d:"2 × 15", q:"band pull apart", rest:30, gif:GIF.band_pull_apart,
+          steps:["Elastico teso davanti a te, braccia tese all'altezza delle spalle.","Apri le braccia lateralmente portando l'elastico al petto, scapole che si avvicinano.","Torna lento in avanti controllando la tensione: niente slancio, il ritorno conta quanto la spinta."]},
+        {n:"Wrist + gomito prep", d:"1 min", q:"wrist elbow warm up calisthenics", hold:60, gif:GIF.wrist_elbow_warmup,
+          steps:["Braccia tese avanti, esegui flessione/estensione del polso e poi rotazioni complete.","Aggiungi pronosupinazione dell'avambraccio (ruota il palmo su e giù) per scaldare il gomito.","Movimento lento e ampio: cerca il punto di tensione, non il dolore."]},
       ]},
       { name:"Mobilità & Postura", note:"", items:[
-        {n:"Hollow ↔ arch (controllo bacino)", d:"3 × 15–20″", q:"hollow body to arch drill", hold:18, rest:40, gif:GIF.hollow_body},
-        {n:"Stretch gran dorsale", d:"45″ / lato", q:"lat stretch", hold:45, gif:GIF.lat_stretch},
-        {n:"Mobilità toracica in rotazione", d:"8 reps / lato", q:"thoracic rotation mobility", gif:GIF.thoracic_rotation},
-        {n:"Side plank + lift bacino", d:"2 × 30″ / lato", q:"side plank hip lift", hold:30, rest:40, gif:GIF.side_plank},
+        {n:"Hollow ↔ arch (controllo bacino)", d:"3 × 15–20″", q:"hollow body to arch drill", hold:18, rest:40, gif:GIF.hollow_body,
+          steps:["Sdraiato prono, braccia e gambe estese: passa in hollow body (supino, lombari a terra, braccia/gambe sollevate).","Da lì inarcati (arch, prono, braccia/gambe sollevate) sentendo l'estensione della schiena.","Alterna le due posizioni con transizione lenta, mantenendo sempre il core attivo."]},
+        {n:"Stretch gran dorsale", d:"45″ / lato", q:"lat stretch", hold:45, gif:GIF.lat_stretch,
+          steps:["Appeso a una sbarra o appiglio, un braccio teso sopra la testa.","Lascia cadere il peso del corpo di lato, ruotando leggermente il bacino per accentuare lo stretch del dorsale.","Respira nello stretch, non rimbalzare: mantieni fermo per tutta la durata."]},
+        {n:"Mobilità toracica in rotazione", d:"8 reps / lato", q:"thoracic rotation mobility", gif:GIF.thoracic_rotation,
+          steps:["Quadrupedia o mezzo ginocchio a terra, una mano dietro la nuca.","Ruota il gomito verso l'alto seguendo con lo sguardo, poi verso il basso incrociando sotto l'altro braccio.","Il movimento parte dalla colonna toracica, non dal bacino: mantieni i fianchi fermi."]},
+        {n:"Side plank + lift bacino", d:"2 × 30″ / lato", q:"side plank hip lift", hold:30, rest:40, gif:GIF.side_plank,
+          steps:["Appoggio su avambraccio, corpo in linea retta di lato, piedi impilati o sfalsati.","Mantieni il bacino sollevato senza farlo cadere né ruotare in avanti/indietro.","Aggiungi il lift: abbassa e risolleva il bacino di pochi centimetri mantenendo la linea."]},
       ]},
       { name:"Skill", note:"", items:[
-        {n:"High pull-ups esplosive (petto alla sbarra)", d:"5 × 3–4", q:"explosive chest to bar pull ups", rest:150, vid:"f69g4QA0aUo", gif:GIF.chest_to_bar_pullup},
-        {n:"Transizione muscle-up (elastico / negative)", d:"5 × 2–3", q:"muscle up transition drill", rest:150, vid:"_eQ2gw_Gg5Y", gif:GIF.bar_muscle_up},
-        {n:"Straight bar dips", d:"4 × 5–6", q:"straight bar dips", rest:120, vid:"f69g4QA0aUo", gif:GIF.dip},
-        {n:"Muscle-up tentativi puliti", d:"4–6 tentativi", q:"strict bar muscle up tutorial", rest:180, vid:"3SduiaXqAT4", gif:GIF.strict_muscle_up},
-        {n:"Support hold laterale (flag)", d:"4 × 10–15″", q:"human flag support hold", hold:12, rest:120, vid:"lczvDH9Fze4", gif:GIF.human_flag},
-        {n:"Tuck flag hold", d:"5 × 5–8″", q:"tuck human flag hold", hold:7, rest:150, vid:"lczvDH9Fze4", gif:GIF.human_flag},
-        {n:"Flag negatives", d:"4 × 3", q:"human flag negatives", rest:150, vid:"lczvDH9Fze4", gif:GIF.human_flag},
-        {n:"Hanging leg raises / oblique", d:"3 × 8–10", q:"hanging leg raises", rest:90, gif:GIF.hanging_leg_raise},
+        {n:"High pull-ups esplosive (petto alla sbarra)", d:"5 × 3–4", q:"explosive chest to bar pull ups", rest:150, vid:"f69g4QA0aUo", gif:GIF.chest_to_bar_pullup,
+          steps:["Presa prona poco oltre le spalle, parti da dead hang.","Tira esplosivo portando il petto (non solo il mento) a toccare la sbarra, gomiti verso il basso e indietro.","Controlla la discesa: l'esplosività è in salita, la fase eccentrica resta lenta per proteggere le spalle."]},
+        {n:"Transizione muscle-up (elastico / negative)", d:"5 × 2–3", q:"muscle up transition drill", rest:150, vid:"_eQ2gw_Gg5Y", gif:GIF.bar_muscle_up,
+          steps:["Con elastico sotto le ginocchia/piedi o partendo dall'alto (negativa), porta il petto oltre la sbarra.","Ruota i polsi sopra la sbarra prima che i gomiti inizino a spingere (il punto critico del muscle-up).","Nella negativa scendi lentissimo dalla posizione di supporto fino al dead hang, 3-5 secondi controllati."]},
+        {n:"Straight bar dips", d:"4 × 5–6", q:"straight bar dips", rest:120, vid:"f69g4QA0aUo", gif:GIF.dip,
+          steps:["Presa sulla sbarra dritta, corpo in supporto con braccia tese, busto leggermente inclinato avanti.","Scendi flettendo i gomiti fino a spalla sotto il gomito, senza andare oltre il punto di comfort dell'articolazione.","Spingi tornando in supporto pieno: gomiti stretti al corpo, non a farfalla."]},
+        {n:"Muscle-up tentativi puliti", d:"4–6 tentativi", q:"strict bar muscle up tutorial", rest:180, vid:"3SduiaXqAT4", gif:GIF.strict_muscle_up,
+          steps:["Da dead hang, tira esplosivo in verticale portando il petto molto vicino alla sbarra.","Ruota i polsi sopra la sbarra nel momento di massima altezza del tiro (transizione), non prima.","Completa spingendo in supporto a braccia tese: se serve slancio eccessivo di gambe, torna alle progressioni."]},
+        {n:"Support hold laterale (flag)", d:"4 × 10–15″", q:"human flag support hold", hold:12, rest:120, vid:"lczvDH9Fze4", gif:GIF.human_flag,
+          steps:["Presa verticale su palo/sbarra: mano bassa spinge, mano alta tira verso il corpo.","Corpo laterale rispetto al supporto, core e obliqui attivi per restare in linea.","Inizia con i piedi a terra come supporto parziale, alza il bacino solo quanto la tenuta lo permette."]},
+        {n:"Tuck flag hold", d:"5 × 5–8″", q:"tuck human flag hold", hold:7, rest:150, vid:"lczvDH9Fze4", gif:GIF.human_flag,
+          steps:["Stessa presa della flag, ma ginocchia raccolte al petto (tuck) invece di gambe estese.","Il tuck riduce il braccio di leva: concentrati su allineamento orizzontale del bacino rispetto alle spalle.","Mantieni gli obliqui del lato inferiore contratti per tutta la durata della tenuta."]},
+        {n:"Flag negatives", d:"4 × 3", q:"human flag negatives", rest:150, vid:"lczvDH9Fze4", gif:GIF.human_flag,
+          steps:["Parti dalla posizione di flag (anche assistita) più alta che riesci a tenere.","Scendi lentamente controllando la rotazione del bacino, 3-4 secondi.","Riparti da capo per ogni negativa: non serve completare il movimento, conta la discesa controllata."]},
+        {n:"Hanging leg raises / oblique", d:"3 × 8–10", q:"hanging leg raises", rest:90, gif:GIF.hanging_leg_raise,
+          steps:["Appeso alla sbarra, corpo fermo, leggera retroversione del bacino per pre-attivare l'addome.","Solleva le gambe tese (o piegate se serve regredire) fino a circa 90° senza dondolare.","Scendi controllato senza lasciare cadere le gambe: la fase eccentrica lavora quanto la salita."]},
       ]},
     ]
   }
@@ -453,6 +490,7 @@ function buildProgram(){
       const card = document.createElement("div"); card.className="ex"; card.dataset.key=key;
 
       let actions = "";
+      if(it.steps) actions += `<button class="pill steps-btn" data-act="steps">${ico()} Esecuzione</button>`;
       if(it.hold) actions += `<button class="pill" data-act="hold">${ico()} Hold ${it.hold}″</button>`;
       if(it.rest) actions += `<button class="pill rest" data-act="rest">${ico()} Recupero ${it.rest>=60?(it.rest/60)+"′":it.rest+"″"}</button>`;
       if(it.vid) actions += `<button class="pill vid" data-act="vid">▶ Demo</button>`;
@@ -467,14 +505,18 @@ function buildProgram(){
 
       const media = it.gif ? `<div class="ex-media"><span class="gif-badge">CLIP</span><video src="${it.gif}" autoplay loop muted playsinline preload="none" aria-label="Dimostrazione: ${it.n}"></video></div>` : "";
 
+      const stepsHtml = it.steps ? `<ol>${it.steps.map(s=>`<li>${s}</li>`).join("")}</ol>` : "";
+
       card.innerHTML = `
         ${media}
         <div class="ex-top"><span class="ex-name">${it.n}</span><span class="ex-detail">${it.d}</span></div>
         <div class="ex-actions">${actions}</div>
         ${dots}
+        <div class="steps-box" data-steps>${stepsHtml}</div>
         <div class="embed" data-embed></div>`;
 
       const embed = card.querySelector("[data-embed]");
+      const stepsBox = card.querySelector("[data-steps]");
       // actions
       card.querySelectorAll(".pill").forEach(p=>{
         p.onclick = ()=>{
@@ -490,6 +532,9 @@ function buildProgram(){
             } else {
               window.open("https://www.youtube.com/results?search_query=" + encodeURIComponent(it.q + " tutorial"), "_blank");
             }
+          } else if(a==="steps"){
+            stepsBox.classList.toggle("open");
+            p.classList.toggle("active", stepsBox.classList.contains("open"));
           } else if(a==="hold"){
             activeKey=key; markLive(); setTimer(it.hold, it.n, "hold");
           } else if(a==="rest"){

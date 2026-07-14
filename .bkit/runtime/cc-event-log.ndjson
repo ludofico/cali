@@ -1,0 +1,10 @@
+{"hookEvent":"SessionEnd","ccVersion":"2.1.139","sessionId":"717aa232-3579-4eb2-ae0c-e687aa9d8598","timestamp":"2026-07-14T09:41:30.833Z","context":{"reason":"other"}}
+{"hookEvent":"Stop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T09:47:29.427Z","context":{"agent":"main","skill":null}}
+{"hookEvent":"SubagentStop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T09:47:35.038Z","context":{"agentType":"unknown","status":"completed"}}
+{"hookEvent":"Stop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T10:12:34.978Z","context":{"agent":"main","skill":null}}
+{"hookEvent":"Stop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T10:20:59.005Z","context":{"agent":"main","skill":null}}
+{"hookEvent":"SubagentStop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T10:21:07.773Z","context":{"agentType":"unknown","status":"completed"}}
+{"hookEvent":"Stop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T10:23:01.927Z","context":{"agent":"main","skill":null}}
+{"hookEvent":"SubagentStop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T10:23:06.863Z","context":{"agentType":"unknown","status":"completed"}}
+{"hookEvent":"Stop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T10:30:49.909Z","context":{"agent":"main","skill":null}}
+{"hookEvent":"SubagentStop","ccVersion":"2.1.139","sessionId":"c4a06a19-85f6-42ca-a5fe-5274b7bd95c2","timestamp":"2026-07-14T10:30:53.434Z","context":{"agentType":"unknown","status":"completed"}}
