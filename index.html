@@ -43,9 +43,9 @@
   h1{font-family:var(--display);font-size:30px;font-weight:700;letter-spacing:-.01em;margin-top:6px;line-height:1;}
   .sub{color:var(--muted);font-size:13.5px;margin-top:8px;line-height:1.5;}
 
-  .tabs{display:flex;gap:8px;margin-top:18px;}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
   .tab{
-    flex:1;border:1px solid var(--line);background:var(--surface);
+    flex:1 1 150px;min-width:150px;border:1px solid var(--line);background:var(--surface);
     color:var(--muted);font-family:var(--display);font-weight:600;font-size:14px;
     padding:13px 10px;border-radius:13px;cursor:pointer;transition:.18s;text-align:left;line-height:1.25;
   }
@@ -96,6 +96,9 @@
   .block-head{display:flex;align-items:baseline;gap:10px;padding:0 2px 10px;}
   .block-head .bnum{font-family:var(--display);font-size:11px;letter-spacing:.2em;color:var(--muted-2);}
   .block-head h2{font-family:var(--display);font-size:15px;font-weight:600;letter-spacing:.02em;}
+  .block-intro{border:1px solid var(--line);background:var(--surface);border-radius:13px;padding:13px 14px;margin-bottom:10px;font-size:12.5px;line-height:1.6;color:var(--muted);}
+  .block-intro b{color:var(--text);font-weight:600;}
+  .block-intro .it{font-family:var(--display);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600;display:block;margin-bottom:6px;}
   .block-head .bnote{margin-left:auto;font-size:11px;color:var(--muted-2);}
 
   .ex{
@@ -154,7 +157,7 @@
   <header>
     <div class="eyebrow">Skill Lab</div>
     <h1>Calisthenics</h1>
-    <p class="sub">Muscle-up · Planche · Human flag · Handstand &amp; HSPU — 2 sedute / settimana, livello quasi avanzato.</p>
+    <p class="sub">Muscle-up · Planche · Human flag · Handstand &amp; HSPU · Larghezza &amp; addome — 3 sedute / settimana, livello quasi avanzato.</p>
     <div class="tabs" id="tabs"></div>
   </header>
 
@@ -193,7 +196,7 @@
     <button class="reset" id="resetProgress">Azzera progressi di oggi</button>
     <p class="note">
       <b>Timer &amp; iOS.</b> Mentre un timer è attivo lo schermo resta acceso (Wake Lock). Il conteggio usa l'orologio reale: se esci e rientri nella pagina, il tempo si aggiorna corretto. Limite di sistema: se passi ad un'altra app o blocchi lo schermo, iOS sospende la pagina e il beep non suona finché non rientri.<br><br>
-      <b>Clip.</b> Ogni esercizio mostra un loop in-page del gesto (badge <b>CLIP</b>), da Calistree — un database dedicato al calisthenics, non meme/GIF generiche — scaricate e salvate in <code>/media</code> così restano disponibili anche offline o se la fonte è irraggiungibile. Per lat stretch e handstand kick-up non esiste una voce esatta: la clip mostrata è la più vicina disponibile. Per cambiarla, sostituisci il file in <code>/media</code> o modifica <code>gif:GIF.chiave</code> nel codice.<br><br>
+      <b>Clip.</b> Ogni esercizio mostra un loop in-page del gesto (badge <b>CLIP</b>), da Calistree — un database dedicato al calisthenics, non meme/GIF generiche — scaricate e salvate in <code>/media</code> così restano disponibili anche offline o se la fonte è irraggiungibile. Per lat stretch, handstand kick-up, alzate laterali (clip con elastico invece dei manubri) e crunch ai cavi (clip a corpo libero) non esiste una voce esatta: la clip mostrata è la più vicina disponibile. Per cambiarla, sostituisci il file in <code>/media</code> o modifica <code>gif:GIF.chiave</code> nel codice.<br><br>
       <b>Video.</b> Le skill hanno anche <b>▶ Demo</b>: apre il player verificato nella pagina. Per cambiarlo, modifica <code>vid:"ID"</code>.<br><br>
       <b>Recupero skill:</b> 2–3 min, priorità alla qualità del gesto, non alla fatica.
     </p>
@@ -232,6 +235,11 @@ const GIF = {
   strict_muscle_up: "media/strict_muscle_up.mp4",
   human_flag: "media/human_flag.mp4",
   hanging_leg_raise: "media/hanging_leg_raise.mp4",
+  banded_lateral_raise: "media/banded_lateral_raise.mp4",
+  weighted_pullup: "media/weighted_pullup.mp4",
+  dumbbell_pullover: "media/dumbbell_pullover.mp4",
+  crunch: "media/crunch.mp4",
+  toes_to_hands_leg_raise: "media/toes_to_hands_leg_raise.mp4",
 };
 
 /* ============ DATI SCHEDA ============ */
@@ -319,6 +327,27 @@ const PROGRAM = [
           steps:["Parti dalla posizione di flag (anche assistita) più alta che riesci a tenere.","Scendi lentamente controllando la rotazione del bacino, 3-4 secondi.","Riparti da capo per ogni negativa: non serve completare il movimento, conta la discesa controllata."]},
         {n:"Hanging leg raises / oblique", d:"3 × 8–10", q:"hanging leg raises", rest:90, gif:GIF.hanging_leg_raise,
           steps:["Appeso alla sbarra, corpo fermo, leggera retroversione del bacino per pre-attivare l'addome.","Solleva le gambe tese (o piegate se serve regredire) fino a circa 90° senza dondolare.","Scendi controllato senza lasciare cadere le gambe: la fase eccentrica lavora quanto la salita."]},
+      ]},
+    ]
+  },
+  {
+    title:"Giorno 3", subtitle:"Larghezza & Addome", focus:"Deltoidi laterali \u00b7 Dorsali \u00b7 Retto addominale",
+    blocks:[
+      { name:"Larghezza", note:"volume alto, carichi onesti", items:[
+        {n:"Alzate laterali", d:"4\u20135 \u00d7 15\u201320", q:"dumbbell lateral raise proper form", rest:60, gif:GIF.banded_lateral_raise,
+          steps:["Manubri leggeri, busto leggermente inclinato in avanti.","Sali fino all'altezza delle spalle, non oltre: sopra entra il trapezio e il deltoide smette di lavorare.","Gomito leggermente flesso e fisso: il movimento parte dal gomito che si alza, non dalla mano.","Scendi lentamente, 2\u20133 secondi. La fase negativa \u00e8 dove sta lo stimolo.","2\u20133 volte a settimana: il deltoide laterale regge tantissimo volume."]},
+        {n:"Trazioni presa larga zavorrate", d:"4 \u00d7 6\u201310", q:"weighted wide grip pull ups", rest:150, gif:GIF.weighted_pullup,
+          steps:["Presa poco pi\u00f9 larga delle spalle \u2014 larghissima riduce il range senza aggiungere nulla.","Tira portando i gomiti verso il basso e indietro, petto verso la sbarra.","Range completo: braccia distese in basso, senza rimbalzare."]},
+        {n:"Pullover", d:"3 \u00d7 12\u201315", q:"dumbbell pullover lat stretch", rest:90, gif:GIF.dumbbell_pullover,
+          steps:["Manubrio o cavo alto, braccia quasi tese.","Porta il peso dall'alto verso i fianchi tenendo i gomiti bloccati.","Serve ad allungare il dorsale sotto carico, cosa che le trazioni fanno poco."]},
+      ]},
+      { name:"Addome", note:"carico progressivo", 
+        intro:{ t:"Quante intersezioni hai", html:"Non c'\u00e8 un test: le intersezioni tendinee si vedono e basta, ma solo sotto una certa percentuale di grasso. Mettiti davanti a uno specchio con <b>luce dall'alto o laterale</b> (quella frontale appiattisce tutto e nasconde i solchi), contrai l'addome come in un hollow body senza trattenere il fiato e conta i solchi orizzontali. Il retto addominale \u00e8 un unico muscolo diviso in verticale dalla linea alba; le intersezioni sono le bande trasversali: <b>tre bande = 6 pack, quattro = 8 pack</b>. La quarta coppia, quando c'\u00e8, sta <b>sotto l'ombelico</b> ed \u00e8 quasi sempre l'ultima a diventare visibile, perch\u00e9 \u00e8 anche la zona dove il grasso resta pi\u00f9 a lungo. Aspettati asimmetria tra destra e sinistra: \u00e8 normale. Se ora non vedi nulla nella parte bassa non \u00e8 ancora una risposta \u2014 potrebbe essere solo grasso sottocutaneo." },
+        items:[
+        {n:"Crunch ai cavi in ginocchio", d:"4 \u00d7 10\u201315", q:"kneeling cable crunch form", rest:90, gif:GIF.crunch,
+          steps:["Corda dietro la nuca, ginocchia a terra.","Arrotoli la colonna verso il bacino \u2014 non \u00e8 una flessione dell'anca, il bacino resta fermo.","Contrazione forte in fondo, 1 secondo.","Aumenta il carico serie dopo serie: \u00e8 un esercizio da sovraccarico, non da reps infinite."]},
+        {n:"Sollevamento gambe zavorrato", d:"3\u20134 \u00d7 8\u201312", q:"weighted hanging leg raise", rest:90, gif:GIF.toes_to_hands_leg_raise,
+          steps:["Appeso alla sbarra, peso tra i piedi o cavigliere.","Sali oltre l'orizzontale portando il bacino in retroversione \u2014 se ti fermi a 90\u00b0 stai allenando solo gli ileopsoas.","Scendi controllato senza dondolare."]},
       ]},
     ]
   }
@@ -482,7 +511,8 @@ function buildProgram(){
   const root = el("program"); root.innerHTML="";
   PROGRAM[curDay].blocks.forEach((blk, bi)=>{
     const sec = document.createElement("section"); sec.className="block";
-    sec.innerHTML = `<div class="block-head"><span class="bnum">0${bi+1}</span><h2>${blk.name}</h2>${blk.note?`<span class="bnote">${blk.note}</span>`:""}</div>`;
+    sec.innerHTML = `<div class="block-head"><span class="bnum">0${bi+1}</span><h2>${blk.name}</h2>${blk.note?`<span class="bnote">${blk.note}</span>`:""}</div>`
+      + (blk.intro ? `<div class="block-intro"><span class="it">${blk.intro.t}</span>${blk.intro.html}</div>` : "");
     blk.items.forEach((it, ii)=>{
       const key = `d${curDay}b${bi}i${ii}`;
       const sets = parseSets(it.d);
@@ -557,7 +587,8 @@ function buildProgram(){
   markLive();
 }
 
-function parseSets(d){ const m = d.match(/^(\d+)\s*×/); return m ? parseInt(m[1]) : 0; }
+// Accetta "4 ×" e anche range tipo "4–5 ×": in quel caso i pallini sono le serie massime.
+function parseSets(d){ const m = d.match(/^(\d+)(?:\s*[–—-]\s*(\d+))?\s*×/); return m ? parseInt(m[2] || m[1]) : 0; }
 function markLive(){
   document.querySelectorAll(".ex").forEach(c=> c.classList.toggle("live", c.dataset.key===activeKey));
 }
